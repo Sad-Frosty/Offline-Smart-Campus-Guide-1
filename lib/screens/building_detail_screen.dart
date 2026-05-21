@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 
 import '../models/building.dart';
 import '../providers/campus_provider.dart';
+import '../screens/navigation_screen.dart';
+import '../services/location_service.dart';
+import '../services/navigation_service.dart';
 
 class BuildingDetailScreen extends StatelessWidget {
   final CampusBuilding building;
@@ -77,7 +80,9 @@ class BuildingDetailScreen extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.12),
+                color: theme.colorScheme.primary.withAlpha(
+                  (theme.colorScheme.primary.a * 255.0 * 0.12).round(),
+                ),
                 borderRadius: BorderRadius.circular(22),
               ),
               child: Column(
@@ -140,7 +145,10 @@ class BuildingDetailScreen extends StatelessWidget {
                         width: 32,
                         height: 32,
                         decoration: BoxDecoration(
-                          color: theme.colorScheme.primary.withOpacity(0.18),
+                          color: theme.colorScheme.primary.withAlpha(
+                            (theme.colorScheme.primary.a * 255.0 * 0.18)
+                                .round(),
+                          ),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Center(
@@ -164,6 +172,66 @@ class BuildingDetailScreen extends StatelessWidget {
                   ),
                 );
               }).toList(),
+            ),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton.icon(
+                icon: const Icon(Icons.navigation),
+                label: const Text('Navigate From Current Location'),
+                onPressed: () async {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (_) {
+                      return const AlertDialog(
+                        content: SizedBox(
+                          height: 90,
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+
+                  try {
+                    final currentPosition =
+                        await LocationService.determinePosition();
+                    final route = NavigationService.calculateRoute(
+                      currentPosition,
+                      building,
+                    );
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => NavigationScreen(route: route),
+                        ),
+                      );
+                    }
+                  } on LocationException catch (error) {
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(error.message)),
+                      );
+                    }
+                  } catch (error) {
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Unable to determine your current location. Please try again.',
+                          ),
+                        ),
+                      );
+                    }
+                  }
+                },
+              ),
             ),
             const SizedBox(height: 16),
             SizedBox(

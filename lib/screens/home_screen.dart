@@ -29,7 +29,10 @@ class HomeScreen extends StatelessWidget {
           Text(
             'Find campus buildings, routes, and offline directions in one place.',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.textTheme.bodySmall?.color?.withOpacity(0.75),
+              color: theme.textTheme.bodySmall?.color?.withAlpha(
+                (((theme.textTheme.bodySmall?.color?.a ?? 1.0) * 255.0) * 0.75)
+                    .round(),
+              ),
             ),
           ),
           const SizedBox(height: 24),
@@ -206,7 +209,9 @@ class HomeScreen extends StatelessWidget {
                       width: 38,
                       height: 38,
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.primary.withOpacity(0.14),
+                        color: theme.colorScheme.primary.withAlpha(
+                          (theme.colorScheme.primary.a * 255.0 * 0.14).round(),
+                        ),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Icon(

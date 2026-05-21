@@ -41,7 +41,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.surface.withOpacity(0.18),
+                  color: theme.colorScheme.surface.withAlpha(
+                    (theme.colorScheme.surface.a * 255.0 * 0.18).round(),
+                  ),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -66,7 +68,9 @@ class _SplashScreenState extends State<SplashScreen> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.inter(
                   textStyle: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onPrimary.withOpacity(0.88),
+                    color: theme.colorScheme.onPrimary.withAlpha(
+                      (theme.colorScheme.onPrimary.a * 255.0 * 0.88).round(),
+                    ),
                   ),
                 ),
               ),

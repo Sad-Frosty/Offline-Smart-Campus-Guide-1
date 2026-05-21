@@ -132,11 +132,15 @@ class _MainPageState extends State<MainPage> {
           leftCornerRadius: 18,
           rightCornerRadius: 18,
           activeColor: theme.colorScheme.secondary,
-          inactiveColor: theme.colorScheme.onSurface.withOpacity(0.65),
+          inactiveColor: theme.colorScheme.onSurface.withAlpha(
+            (theme.colorScheme.onSurface.a * 255.0 * 0.65).round(),
+          ),
           backgroundColor: theme.colorScheme.surface,
           iconSize: 28,
           onTap: (index) => setState(() => _activeIndex = index),
-          splashColor: theme.colorScheme.primary.withOpacity(0.18),
+          splashColor: theme.colorScheme.primary.withAlpha(
+            (theme.colorScheme.primary.a * 255.0 * 0.18).round(),
+          ),
           shadow: const BoxShadow(
             color: Colors.black26,
             blurRadius: 8,

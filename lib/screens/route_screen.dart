@@ -41,8 +41,9 @@ class RouteScreen extends StatelessWidget {
                             begin: Alignment.bottomCenter,
                             end: Alignment.topCenter,
                             colors: [
-                              Colors.black.withOpacity(0.8),
-                              Colors.black.withOpacity(0.0),
+                              Colors.black.withAlpha(
+                                  (Colors.black.a * 255.0 * 0.8).round()),
+                              Colors.black.withAlpha(0),
                             ],
                           ),
                         ),
@@ -124,8 +125,10 @@ class RouteScreen extends StatelessWidget {
                           vertical: 0,
                         ),
                         leading: CircleAvatar(
-                          backgroundColor:
-                              theme.colorScheme.primary.withOpacity(0.16),
+                          backgroundColor: theme.colorScheme.primary.withAlpha(
+                            (theme.colorScheme.primary.a * 255.0 * 0.16)
+                                .round(),
+                          ),
                           child: Text(
                             '${index + 1}',
                             style: theme.textTheme.bodyMedium?.copyWith(
