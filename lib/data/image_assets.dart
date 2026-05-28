@@ -6,7 +6,7 @@ class AssetImages {
   static const universityHall1 =
       'assets/WhatsApp Image 2026-05-08 at 10.55.31 PM.jpeg';
   static const schoolPark =
-      'assets/WhatsApp Image 2026-05-14 at 2.20.38 AM.jpeg';
+      'assets/WhatsApp Image 2026-05-14 at 2.17.35 AM (1).jpeg';
   static const sportOffice =
       'assets/WhatsApp Image 2026-05-14 at 2.17.34 AM (1).jpeg';
   static const ltBlock =
