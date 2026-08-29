@@ -22,13 +22,18 @@ class UenrCampusGuideApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const primaryColor = Color(0xFF0E6C6A);
-    const secondaryColor = Color(0xFFF2B94B);
-    const backgroundColor = Color(0xFFF4F7F8);
-    const cardColor = Color(0xFFFFFFFF);
-    const darkSurface = Color(0xFF0D1F2A);
-    const darkCard = Color(0xFF143041);
-    const darkBackground = Color(0xFF091A25);
+    const primaryColor = Color(0xFF006B7A);
+    const secondaryColor = Color(0xFF2E7D32);
+    const lightAccentColor = Color(0xFFE3F2F4);
+    const backgroundColor = Color(0xFFF4F8F9);
+    const whiteColor = Color(0xFFFFFFFF);
+    const cardColor = whiteColor;
+    const primaryTextColor = Color(0xFF263238);
+    const secondaryTextColor = Color(0xFF607D8B);
+    const darkSurface = Color(0xFF102F35);
+    const darkCard = Color(0xFF183D44);
+    const darkBackground = Color(0xFF0B1F24);
+    const darkPrimary = Color(0xFF5EB7BE);
 
     final lightTheme = ThemeData(
       useMaterial3: true,
@@ -38,9 +43,17 @@ class UenrCampusGuideApp extends StatelessWidget {
         seedColor: primaryColor,
         brightness: Brightness.light,
         primary: primaryColor,
+        onPrimary: whiteColor,
         secondary: secondaryColor,
+        onSecondary: whiteColor,
         surface: cardColor,
-        surfaceContainerHighest: const Color(0xFFEAF1F4),
+        onSurface: primaryTextColor,
+        onSurfaceVariant: secondaryTextColor,
+        background: backgroundColor,
+        onBackground: primaryTextColor,
+        primaryContainer: lightAccentColor,
+        secondaryContainer: const Color(0xFFE8F3E9),
+        surfaceContainerHighest: lightAccentColor,
       ),
       textTheme: GoogleFonts.interTextTheme(
         ThemeData.light().textTheme,
@@ -48,23 +61,30 @@ class UenrCampusGuideApp extends StatelessWidget {
         headlineLarge: const TextStyle(
           fontWeight: FontWeight.w800,
           letterSpacing: -0.8,
+          color: primaryTextColor,
         ),
         headlineMedium: const TextStyle(
           fontWeight: FontWeight.w800,
           letterSpacing: -0.6,
+          color: primaryTextColor,
         ),
         titleLarge: const TextStyle(
           fontWeight: FontWeight.w700,
           letterSpacing: -0.4,
+          color: primaryTextColor,
         ),
         titleMedium: const TextStyle(
           fontWeight: FontWeight.w700,
           letterSpacing: -0.2,
+          color: primaryTextColor,
         ),
+        bodyMedium: const TextStyle(color: primaryTextColor),
+        bodyLarge: const TextStyle(color: primaryTextColor),
+        bodySmall: const TextStyle(color: secondaryTextColor),
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: backgroundColor,
-        foregroundColor: Color(0xFF17324A),
+        foregroundColor: primaryTextColor,
         elevation: 0,
         centerTitle: false,
       ),
@@ -77,10 +97,10 @@ class UenrCampusGuideApp extends StatelessWidget {
         margin: EdgeInsets.zero,
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: const Color(0xFFEAF1F4),
+        backgroundColor: lightAccentColor,
         labelStyle: const TextStyle(
           fontWeight: FontWeight.w600,
-          color: Color(0xFF17324A),
+          color: primaryTextColor,
         ),
         side: BorderSide.none,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -88,7 +108,7 @@ class UenrCampusGuideApp extends StatelessWidget {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: const Color(0xFFEAF1F4),
+        fillColor: lightAccentColor,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(18),
           borderSide: BorderSide.none,
@@ -101,13 +121,14 @@ class UenrCampusGuideApp extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
           borderSide: const BorderSide(color: primaryColor, width: 1.5),
         ),
+        hintStyle: const TextStyle(color: secondaryTextColor),
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           backgroundColor: primaryColor,
-          foregroundColor: Colors.white,
+          foregroundColor: whiteColor,
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
           textStyle: const TextStyle(fontWeight: FontWeight.w700),
           shape: RoundedRectangleBorder(
@@ -117,6 +138,7 @@ class UenrCampusGuideApp extends StatelessWidget {
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: primaryColor,
+        foregroundColor: whiteColor,
       ),
     );
 
@@ -127,10 +149,18 @@ class UenrCampusGuideApp extends StatelessWidget {
       colorScheme: ColorScheme.fromSeed(
         seedColor: primaryColor,
         brightness: Brightness.dark,
-        primary: const Color(0xFF56D5C2),
+        primary: darkPrimary,
+        onPrimary: whiteColor,
         secondary: secondaryColor,
+        onSecondary: whiteColor,
         surface: darkCard,
-        surfaceContainerHighest: const Color(0xFF1F4154),
+        onSurface: whiteColor,
+        onSurfaceVariant: const Color(0xFFD5E2E6),
+        background: darkBackground,
+        onBackground: whiteColor,
+        primaryContainer: const Color(0xFF1A4650),
+        secondaryContainer: const Color(0xFF214F2A),
+        surfaceContainerHighest: const Color(0xFF234D52),
       ),
       textTheme: GoogleFonts.interTextTheme(
         ThemeData.dark().textTheme,
@@ -138,19 +168,26 @@ class UenrCampusGuideApp extends StatelessWidget {
         headlineLarge: const TextStyle(
           fontWeight: FontWeight.w800,
           letterSpacing: -0.8,
+          color: Colors.white,
         ),
         headlineMedium: const TextStyle(
           fontWeight: FontWeight.w800,
           letterSpacing: -0.6,
+          color: Colors.white,
         ),
         titleLarge: const TextStyle(
           fontWeight: FontWeight.w700,
           letterSpacing: -0.4,
+          color: Colors.white,
         ),
         titleMedium: const TextStyle(
           fontWeight: FontWeight.w700,
           letterSpacing: -0.2,
+          color: Colors.white,
         ),
+        bodyMedium: const TextStyle(color: Colors.white),
+        bodyLarge: const TextStyle(color: Colors.white),
+        bodySmall: const TextStyle(color: Color(0xFFD5E2E6)),
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: darkBackground,
@@ -167,7 +204,7 @@ class UenrCampusGuideApp extends StatelessWidget {
         margin: EdgeInsets.zero,
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: const Color(0xFF1D3A4B),
+        backgroundColor: const Color(0xFF234D52),
         labelStyle: const TextStyle(
           fontWeight: FontWeight.w600,
           color: Colors.white,
@@ -178,7 +215,7 @@ class UenrCampusGuideApp extends StatelessWidget {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: const Color(0xFF193446),
+        fillColor: const Color(0xFF1C3E45),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(18),
           borderSide: BorderSide.none,
@@ -189,15 +226,16 @@ class UenrCampusGuideApp extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(18),
-          borderSide: const BorderSide(color: Color(0xFF56D5C2), width: 1.5),
+          borderSide: const BorderSide(color: darkPrimary, width: 1.5),
         ),
+        hintStyle: const TextStyle(color: Color(0xFFD5E2E6)),
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: const Color(0xFF56D5C2),
-          foregroundColor: const Color(0xFF071A27),
+          backgroundColor: darkPrimary,
+          foregroundColor: whiteColor,
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
           textStyle: const TextStyle(fontWeight: FontWeight.w700),
           shape: RoundedRectangleBorder(
@@ -206,7 +244,8 @@ class UenrCampusGuideApp extends StatelessWidget {
         ),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        backgroundColor: Color(0xFF56D5C2),
+        backgroundColor: darkPrimary,
+        foregroundColor: whiteColor,
       ),
     );
 
