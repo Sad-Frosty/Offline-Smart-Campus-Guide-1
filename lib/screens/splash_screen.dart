@@ -26,56 +26,92 @@ class _SplashScreenState extends State<SplashScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [theme.colorScheme.primary, theme.colorScheme.secondary],
-          ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surface.withAlpha(
-                    (theme.colorScheme.surface.a * 255.0 * 0.18).round(),
-                  ),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.school,
-                  size: 72,
-                  color: theme.colorScheme.onPrimary,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'UENR Campus Guide',
-                style: GoogleFonts.inter(
-                  textStyle: theme.textTheme.headlineSmall?.copyWith(
-                    color: theme.colorScheme.onPrimary,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Offline navigation for visitors and new students',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.inter(
-                  textStyle: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onPrimary.withAlpha(
-                      (theme.colorScheme.onPrimary.a * 255.0 * 0.88).round(),
-                    ),
-                  ),
-                ),
-              ),
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF0B5F68),
+              Color(0xFF0E7A79),
+              Color(0xFF1A8E8A),
+              Color(0xFF0D3C4A),
             ],
           ),
+        ),
+        child: Stack(
+          children: [
+            Positioned(
+              top: -40,
+              right: -30,
+              child: Container(
+                width: 180,
+                height: 180,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xFFF2B94B).withAlpha(90),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: -60,
+              left: -30,
+              child: Container(
+                width: 220,
+                height: 220,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xFF9BE4D5).withAlpha(80),
+                ),
+              ),
+            ),
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withAlpha(30),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.white.withAlpha(55),
+                        width: 1.5,
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.school,
+                      size: 72,
+                      color: theme.colorScheme.onPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'UENR Campus Guide',
+                    style: GoogleFonts.inter(
+                      textStyle: theme.textTheme.headlineSmall?.copyWith(
+                        color: theme.colorScheme.onPrimary,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Offline navigation for visitors and new students',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.inter(
+                      textStyle: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onPrimary.withAlpha(
+                          (theme.colorScheme.onPrimary.a * 255.0 * 0.88)
+                              .round(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

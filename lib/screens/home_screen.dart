@@ -28,12 +28,7 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             'Find campus buildings, routes, and offline directions in one place.',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.textTheme.bodySmall?.color?.withAlpha(
-                (((theme.textTheme.bodySmall?.color?.a ?? 1.0) * 255.0) * 0.75)
-                    .round(),
-              ),
-            ),
+            style: theme.textTheme.bodyMedium,
           ),
           const SizedBox(height: 24),
           GestureDetector(
@@ -174,19 +169,99 @@ class HomeScreen extends StatelessWidget {
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             itemCount: featuredBuildings.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 12),
+            separatorBuilder: (_, __) => Divider(
+              height: 1,
+              thickness: 1,
+              color: theme.colorScheme.outlineVariant,
+            ),
             itemBuilder: (context, index) {
               final building = featuredBuildings[index];
-              return BuildingPreviewCard(
-                building: building,
-                onTap: () {
-                  provider.selectBuilding(building);
-                  Navigator.pushNamed(
-                    context,
-                    '/detail',
-                    arguments: {'building': building},
-                  );
-                },
+              final hasImage = building.imagePath?.isNotEmpty == true;
+
+              return Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(14),
+                  onTap: () {
+                    provider.selectBuilding(building);
+                    Navigator.pushNamed(
+                      context,
+                      '/detail',
+                      arguments: {'building': building},
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (hasImage) ...[
+                          Hero(
+                            tag: building.id,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.asset(
+                                building.imagePath!,
+                                width: 72,
+                                height: 72,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                        ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                building.name,
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: theme.colorScheme.primary.withAlpha(
+                                    (theme.colorScheme.primary.a * 255.0 * 0.12)
+                                        .round(),
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  building.category,
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: theme.colorScheme.primary,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                building.description,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: theme.colorScheme.onSurfaceVariant,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Icon(
+                          Icons.chevron_right_rounded,
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               );
             },
           ),

@@ -20,6 +20,6 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Welcome to UENR'), findsOneWidget);
-    expect(find.text('Major Campus Buildings'), findsOneWidget);
+    expect(find.text('Quick access'), findsOneWidget);
   });
 }
