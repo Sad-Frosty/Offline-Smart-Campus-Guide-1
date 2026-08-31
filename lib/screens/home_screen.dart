@@ -248,7 +248,7 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 Container(
                                   width: 8,
-                                  height: 20,
+                                  height: 18,
                                   decoration: BoxDecoration(
                                     color: theme.colorScheme.primary,
                                     borderRadius: BorderRadius.circular(6),
@@ -258,32 +258,39 @@ class HomeScreen extends StatelessWidget {
                                 Text(
                                   'Explore by category',
                                   style: theme.textTheme.titleLarge?.copyWith(
-                                    fontSize: 22,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.w800,
                                     letterSpacing: -0.4,
-                                    height: 1.3,
+                                    height: 1.2,
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 6),
                             Wrap(
-                              spacing: 10,
-                              runSpacing: 10,
+                              spacing: 5,
+                              runSpacing: 5,
                               children: provider.categories.map((category) {
-                                return ActionChip(
-                                  label: Text(
-                                    category,
-                                    style: theme.textTheme.labelLarge?.copyWith(
-                                      fontSize: 12.5,
-                                      fontWeight: FontWeight.w700,
-                                      letterSpacing: 0.02,
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 2),
+                                  child: ActionChip(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8, vertical: 4),
+                                    label: Text(
+                                      category,
+                                      style:
+                                          theme.textTheme.labelLarge?.copyWith(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: 0.02,
+                                      ),
                                     ),
+                                    onPressed: () {
+                                      provider.updateSearchQuery(category);
+                                      Navigator.pushNamed(context, '/search');
+                                    },
                                   ),
-                                  onPressed: () {
-                                    provider.updateSearchQuery(category);
-                                    Navigator.pushNamed(context, '/search');
-                                  },
                                 );
                               }).toList(),
                             ),
@@ -361,54 +368,73 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surface.withAlpha(210),
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: ListView.separated(
-                primary: false,
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: featuredBuildings.length,
-                separatorBuilder: (_, __) => Divider(
-                  height: 1,
-                  thickness: 1,
-                  color: theme.colorScheme.outlineVariant,
-                ),
-                itemBuilder: (context, index) {
-                  final building = featuredBuildings[index];
-                  final hasImage = building.imagePath?.isNotEmpty == true;
+            const SizedBox(height: 14),
+            ListView.separated(
+              primary: false,
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              itemCount: featuredBuildings.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 10),
+              itemBuilder: (context, index) {
+                final building = featuredBuildings[index];
+                final hasImage = building.imagePath?.isNotEmpty == true;
 
-                  return Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(14),
-                      onTap: () {
-                        provider.selectBuilding(building);
-                        Navigator.pushNamed(
-                          context,
-                          '/detail',
-                          arguments: {'building': building},
-                        );
-                      },
+                return Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(16),
+                    onTap: () {
+                      provider.selectBuilding(building);
+                      Navigator.pushNamed(
+                        context,
+                        '/detail',
+                        arguments: {'building': building},
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.surface,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.06),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                        border: Border.all(
+                          color:
+                              theme.colorScheme.outlineVariant.withOpacity(0.3),
+                          width: 0.5,
+                        ),
+                      ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        padding: const EdgeInsets.all(14),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             if (hasImage) ...[
                               Hero(
                                 tag: building.id,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.asset(
-                                    building.imagePath!,
-                                    width: 72,
-                                    height: 72,
-                                    fit: BoxFit.cover,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.08),
+                                        blurRadius: 8,
+                                        offset: const Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(14),
+                                    child: Image.asset(
+                                      building.imagePath!,
+                                      width: 85,
+                                      height: 85,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -418,70 +444,85 @@ class HomeScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    building.name,
-                                    style:
-                                        theme.textTheme.titleMedium?.copyWith(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w800,
-                                      letterSpacing: -0.2,
-                                      height: 1.35,
-                                    ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          building.name,
+                                          style: theme.textTheme.titleMedium
+                                              ?.copyWith(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w800,
+                                            letterSpacing: -0.2,
+                                            height: 1.35,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                   const SizedBox(height: 6),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 4,
+                                      horizontal: 10,
+                                      vertical: 5,
                                     ),
                                     decoration: BoxDecoration(
-                                      color:
-                                          theme.colorScheme.primary.withAlpha(
-                                        (theme.colorScheme.primary.a *
-                                                255.0 *
-                                                0.12)
-                                            .round(),
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          theme.colorScheme.primary
+                                              .withOpacity(0.15),
+                                          theme.colorScheme.primary
+                                              .withOpacity(0.08),
+                                        ],
                                       ),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                        color: theme.colorScheme.primary
+                                            .withOpacity(0.2),
+                                        width: 0.5,
+                                      ),
                                     ),
                                     child: Text(
                                       building.category,
                                       style:
                                           theme.textTheme.bodySmall?.copyWith(
                                         color: theme.colorScheme.primary,
-                                        fontSize: 11.5,
+                                        fontSize: 11,
                                         fontWeight: FontWeight.w700,
                                         letterSpacing: 0.08,
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(height: 8),
+                                  const SizedBox(height: 6),
                                   Text(
                                     building.description,
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: theme.textTheme.bodySmall?.copyWith(
                                       color: theme.colorScheme.onSurfaceVariant,
-                                      fontSize: 13,
+                                      fontSize: 12,
                                       fontWeight: FontWeight.w500,
-                                      height: 1.45,
+                                      height: 1.4,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: 10),
                             Icon(
-                              Icons.chevron_right_rounded,
-                              color: theme.colorScheme.onSurfaceVariant,
+                              Icons.arrow_forward_rounded,
+                              color: theme.colorScheme.primary,
+                              size: 20,
                             ),
                           ],
                         ),
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
             const SizedBox(height: 24),
             Text(

@@ -24,15 +24,14 @@ class UenrCampusGuideApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const primaryColor = Color(0xFF006B7A);
     const secondaryColor = Color(0xFF2E7D32);
-    const lightAccentColor = Color(0xFFE3F2F4);
-    const backgroundColor = Color(0xFFF4F8F9);
-    const whiteColor = Color(0xFFFFFFFF);
-    const cardColor = whiteColor;
-    const primaryTextColor = Color(0xFF263238);
+    const lightAccentColor = Color.fromARGB(255, 214, 223, 206);
+    const backgroundColor = Color.fromRGBO(253, 255, 254, 0);
+    const whiteColor = Color.fromARGB(255, 243, 241, 241);
+    const cardColor = Color.fromARGB(172, 225, 233, 235);
+    const primaryTextColor = Color.fromARGB(255, 1, 6, 8);
     const secondaryTextColor = Color(0xFF607D8B);
-    const darkSurface = Color(0xFF102F35);
     const darkCard = Color(0xFF183D44);
-    const darkBackground = Color(0xFF0B1F24);
+    const darkBackground = Color.fromARGB(255, 62, 122, 133);
     const darkPrimary = Color(0xFF5EB7BE);
 
     final lightTheme = ThemeData(
@@ -52,7 +51,7 @@ class UenrCampusGuideApp extends StatelessWidget {
         background: backgroundColor,
         onBackground: primaryTextColor,
         primaryContainer: lightAccentColor,
-        secondaryContainer: const Color(0xFFE8F3E9),
+        secondaryContainer: const Color.fromARGB(255, 1, 255, 22),
         surfaceContainerHighest: lightAccentColor,
       ),
       textTheme: GoogleFonts.interTextTheme(
